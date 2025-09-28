@@ -36,8 +36,7 @@ program pepitaGame {
 	game.whenCollideDo(pepita, { objeto => pepita.comer(manzana) game.removeVisual(manzana) game.say(pepita,"¡Delicioso!") })
 	game.whenCollideDo(pepita, { objeto => pepita.comer(alpiste) game.removeVisual(alpiste) game.say(pepita, "¡Rico!") })
 
-	game.whenCollideDo(pepita, {  => pepita.capturada(silvestre) game.say(pepita, "¡Perdi!") game.stop()})
-	
+	game.whenCollideDo(pepita, {objeto  => pepita.capturada(silvestre) game.say(pepita, "¡Perdi!") game.stop()})
 	game.whenCollideDo(pepita, { objeto => pepita.llegarAlNido(nido) game.say(pepita, "¡Ganeee!") game.stop()})
 
 
