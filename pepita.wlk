@@ -1,4 +1,4 @@
-import wollok.game.*
+//import wollok.game.*
 import comidas.*
 import extras.*
 
@@ -8,22 +8,24 @@ object pepita {
 	var energia = 500
 	var property position = game.origin()
 	var imagen =  "pepita.png" 
-	var capturada = false
 	const property obstaculos = [muro1, muro2, muro3] 
 	method energia() {return energia}
 	method position() {return position}
 	method image() {return imagen}
 
-
-	method comer(comida) { 
-		energia = energia + comida.energiaQueOtorga()
-	}
 	method volar(kms) {
 		energia = energia - 8 - kms 
 	}
+
 	method puedeVolar(){
 		return energia >= 9
 	}
+
+	method comer(comida) { 
+		game.say(self, "¡Delicioso!" + " Ahora tengo " + self.energia() + " de energía.")
+		energia = energia + comida.energiaQueOtorga()
+	}
+
 	method derecha() {
 		if (position.x() < game.width() - 2){
 			self.intentarVolar( position.right(1) , "pepita-derecha.png")
@@ -64,21 +66,25 @@ object pepita {
 
 	}
 	method bajarPorGravedad() {
-		if (not capturada && position.y() > 0 && not self.hayMuroEn(position.down(1))) {
+		if ( position.y() > 0 && not self.hayMuroEn(position.down(1))) {
 			position = position.down(1)
 			self.image()
 		}
 	}
-	method capturada(objeto) {
-		if (self.position() == objeto.position()) {
-			capturada = true
-			imagen = "pepita-gris.png"
-		}
+
+//CORRECIONES
+	method chocasteCon(objeto) {
+		return objeto.chocasteCon(self)
+	}
+	method perdi(){
+		imagen = "pepita-gris.png"
+		game.say(self, "¡Perdi!")
+		game.stop()
 	}
 
-
-	method llegarAlNido(meta) {
-		return self.position() == meta.position()
+	method gane(){
+		game.say(self,"¡Ganeee!")
+		game.stop()
 	}
 }
 
@@ -106,6 +112,11 @@ object silvestre {
 		} else if (objetivo.position().x() < position.x() && position.x() > 3) {
 			position = position.left(1)
 		}
+	}
+
+//CORRECIONES
+	method chocasteCon(objeto) {
+		return objeto.perdi()
 	}
 }
 

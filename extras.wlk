@@ -1,4 +1,4 @@
-import wollok.game.*
+//import wollok.game.*
 import comidas.*
 import pepita.*
 
@@ -23,4 +23,8 @@ object nido {
   method image() = imagen
   method position() = game.at(10,8)
 
+//CORRECIONES
+  method chocasteCon(objeto) {
+      return objeto.gane()
+  }
 }

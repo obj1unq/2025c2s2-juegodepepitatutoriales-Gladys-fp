@@ -23,7 +23,7 @@ program pepitaGame {
 	//-------------------VISUALES-------------
 	game.boardGround("fondo2.jpg")
 	game.addVisual(manzana)
-	game.addVisual(alpiste)
+	game.addVisual(alpiste) 
 	game.addVisual(muro1)
 	game.addVisual(muro2)
 	game.addVisual(muro3)
@@ -33,11 +33,11 @@ program pepitaGame {
 
 
 	// ------------------COLISIONES-------------
-	game.whenCollideDo(pepita, { objeto => pepita.comer(manzana) game.removeVisual(manzana) game.say(pepita,"¡Delicioso!") })
-	game.whenCollideDo(pepita, { objeto => pepita.comer(alpiste) game.removeVisual(alpiste) game.say(pepita, "¡Rico!") })
-
-	game.whenCollideDo(pepita, {objeto  => pepita.capturada(silvestre) game.say(pepita, "¡Perdi!") game.stop()})
-	game.whenCollideDo(pepita, { objeto => pepita.llegarAlNido(nido) game.say(pepita, "¡Ganeee!") game.stop()})
+	
+	game.onCollideDo(nido, { pepita => pepita.gane() })
+	game.onCollideDo(silvestre, { pepita => pepita.perdi() })
+	game.onCollideDo(manzana, { pepita => pepita.chocasteCon(manzana) })
+	game.onCollideDo(alpiste, { pepita => pepita.chocasteCon(alpiste) })
 
 
 	//----------------------------TICKS------------------------

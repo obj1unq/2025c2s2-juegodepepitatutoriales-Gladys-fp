@@ -1,4 +1,4 @@
-import wollok.game.*
+//import wollok.game.*
 import pepita.*
 
 
@@ -17,6 +17,11 @@ object manzana {
 	method madurar() {
 		madurez += 1
 	}
+//CORRECIONES
+	method chocasteCon(objeto) {
+		game.removeVisual(self)
+		return objeto.comer(self)
+	}
 
 }
 
@@ -26,9 +31,12 @@ object alpiste {
 	method image() {return imagen}
 	method position() {return position}
 
-
 	method energiaQueOtorga() {
 		return 20
-	} 
-
+	}
+//CORRECIONES
+	method chocasteCon(objeto) {
+		game.removeVisual(self)
+		return objeto.comer(self)
+	}
 }
