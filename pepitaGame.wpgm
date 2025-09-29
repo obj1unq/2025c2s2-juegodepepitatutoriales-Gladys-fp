@@ -1,14 +1,48 @@
 import wollok.game.*
 import pepita.*
+import comidas.*
+import extras.*
+
 
 program pepitaGame {
 	game.title("Pepita") 	//Valor por defecto "Wollok Game"
-	game.height(10) 		//valor por defecto 5
-	game.width(10) 			//valor por defecto 5
+	game.height(13) 		//valor por defecto 5
+	game.width(13) 			//valor por defecto 5
 	game.cellSize(50) 		//valor por defecto 50
 	//search assets in assets folder, for example, for the background
-	//Valor por defecto game.ground("ground.png")
+	//Valor por defecto 
+	//game.ground("ground.png")
+
+	//-------------------CONTROLES-------------
+	keyboard.right().onPressDo { pepita.derecha()}
+	keyboard.left().onPressDo { pepita.izquierda()}
+	keyboard.up().onPressDo { pepita.subir()}
+	keyboard.down().onPressDo { pepita.bajar()}
 	
-	//game.addVisual(pepita)
+
+	//-------------------VISUALES-------------
+	game.boardGround("fondo2.jpg")
+	game.addVisual(manzana)
+	game.addVisual(alpiste) 
+	game.addVisual(muro1)
+	game.addVisual(muro2)
+	game.addVisual(muro3)
+	game.addVisual(silvestre)
+	game.addVisual(nido)
+	game.addVisual(pepita)  
+
+
+	// ------------------COLISIONES-------------
+	
+	game.onCollideDo(nido, { pepita => pepita.gane() })
+	game.onCollideDo(silvestre, { pepita => pepita.perdi() })
+	game.onCollideDo(manzana, { pepita => pepita.chocasteCon(manzana) })
+	game.onCollideDo(alpiste, { pepita => pepita.chocasteCon(alpiste) })
+
+
+	//----------------------------TICKS------------------------
+	game.onTick(100, "seguirSilvestre", { => silvestre.seguir() })
+	game.onTick(800, "gravedad", { => pepita.bajarPorGravedad() })		
+
 	game.start()	
 }
